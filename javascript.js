@@ -11,7 +11,12 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     let x = prompt("Enter rock, paper or scissors").toLowerCase();
-    return x;
+    if (x === "rock" || x === "scissors" || x === "paper") {
+        return x;
+    }  else {
+        alert("Incorrect input");
+        return getHumanChoice();
+    }
 }
 
 function playRound(humanSelection, computerSelection) {
@@ -34,14 +39,17 @@ function playGame() {
         let y = getComputerChoice();
         let z = playRound(x, y);
         if (z === "You win") {
-            console.log(`You win ${x} beats ${y}`);
             humanScore++;
-
+            console.log(`You win ${x} beats ${y}\nCurrentscore: ${humanScore}\nComputerscore: ${computerScore}`);
+            
         } else if (z === "You lose") {
-            console.log(`You lose ${y} beats ${x}`)
             computerScore++;
+            console.log(`You lose ${y} beats ${x}\nCurrentscore: ${humanScore}\nComputerscore: ${computerScore}`)
+
         } else {
-            console.log("Tie");
+            computerScore++;
+            humanScore++;
+            console.log(`Draw\nCurrentscore: ${humanScore}\nComputerscore: ${computerScore}`);
             
         }
 
@@ -52,7 +60,7 @@ function playGame() {
     } else if (humanScore < computerScore) {
         return `You lost\nfinal score: ${humanScore}\ncomputerscore: ${computerScore}`
     } else {
-        return "Tie"
+        return `Tie\nfinal score: ${humanScore}\ncomputerscore: ${computerScore}`
     }
 }
 
