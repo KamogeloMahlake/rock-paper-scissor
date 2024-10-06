@@ -18,60 +18,90 @@ function playRound(humanSelection, computerSelection) {
     || (humanSelection === "scissors"  && computerSelection === "paper")) 
     {
         humanScore++;
-        text.textContent = `${humanSelection} beats ${computerSelection}\n
-        humanscore: ${humanScore}\n
-        computerscore: ${computerScore}`;
+        moves.textContent = `${humanSelection} beats ${computerSelection}`;
     }  
     
     else if (humanSelection === computerSelection) 
-    {   text.textContent = `It's a tie\n
-        humanscore: ${humanScore}\n
-        computerscore: ${computerScore}`;
+    {   moves.textContent = `It's a tie`;
     } 
     else 
     {   computerScore++;
-        text.textContent = `${computerSelection} beats ${humanSelection}\n
-        humanscore: ${humanScore}\n
-        computerscore: ${computerScore}`;
+        moves.textContent = `${computerSelection} beats ${humanSelection}`;
     }
 
+    hScore.innerHTML = `<p>${humanScore}</p><p>Player</p>`;
+    cScore.innerHTML = `<p>${computerScore}</p><p>Computer</p>`;
+
     if (humanScore === 5) {
-        text.textContent = `You win\nhumanscore: ${humanScore}
-        \ncomputerscore: ${computerScore}`;
+        moves.style.fontWeight = "bold";
+        moves.innerHTML = "<p>Game Over</p><p>You win</p><p>Choose to start new game</p>";
         humanScore = 0;
         computerScore = 0;
     } else if (computerScore === 5 ) {
-        text.textContent = `You lose\nhumanscore: ${humanScore}
-        \ncomputerscore: ${computerScore}`;
+        moves.innerHTML = "<p>Game Over</p><p>You lose</p><p>Choose to start new game</p>";
+        moves.style.fontWeight = "bold";
         humanScore = 0;
-        computerScore = 0;   
+        computerScore = 0;
     }
+
 
 }
 
 const div = document.querySelector("#main");
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissor");
+const header = document.createElement("h1");
+const scores = document.createElement("div");
+const hScore = document.createElement("div");
+const cScore = document.createElement("div");
+const moves = document.createElement("div");
 
-const rock = document.createElement("button");
-rock.textContent = "ROCK";
+moves.textContent = "Let the game begin";
+moves.style.textAlign = "center";
 
-const paper = document.createElement("button");
-paper.textContent = "PAPER";
+hScore.innerHTML = `<p>${humanScore}</p><p>Player</p>`;
+hScore.style.border = "1px solid black";
+hScore.style.display = "flex";
+hScore.style.flexDirection = "column";
+hScore.style.alignItems = "center";
+hScore.style.width = "85px";
 
-const scissors = document.createElement("button");
-scissors.textContent = "SCISSORS"
+cScore.innerHTML = `<p>${computerScore}</p><p>Computer</p>`;
+cScore.style.border = "1px solid black";
+cScore.style.display = "flex";
+cScore.style.flexDirection = "column";
+cScore.style.alignItems = "center";
+cScore.style.width = "85px";
 
+
+header.textContent = "First to five wins";
+header.style.textAlign = "center";
 const text = document.createElement("div");
 const buttons = document.createElement("div");
-text.textContent ="Let the game begin"
+
+scores.appendChild(hScore);
+scores.appendChild(moves);
+scores.appendChild(cScore);
 
 buttons.appendChild(rock);
 buttons.appendChild(paper);
-buttons.appendChild(scissors)
-div.appendChild(buttons)
+buttons.appendChild(scissors);
+
+div.appendChild(header);
+div.appendChild(buttons);
+div.appendChild(scores);
 div.appendChild(text);
 
-buttons.style.cssText = "display: flex; align-items: center ; justify-content: space-evenly;"
-buttons.style.height = "100px"
+buttons.style.display = "flex";
+buttons.style.alignItems = "center";
+buttons.style.justifyContent = "space-evenly";
+buttons.style.flexWrap = "wrap";
+buttons.style.marginBottom = "10px";
+
+scores.style.display = "flex";
+scores.style.justifyContent = "space-evenly";
+scores.style.flexWrap = "wrap";
 
 rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
 paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
